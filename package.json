@@ -1,0 +1,18 @@
+{
+  "name": "review-form-assistant",
+  "version": "1.0.0",
+    "description": "Local answer server and Manifest V3 browser extension for authorized, ungraded Google Forms review material.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "audit": "node scripts/audit.mjs",
+    "package": "node scripts/package.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

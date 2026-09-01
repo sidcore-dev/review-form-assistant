@@ -1,0 +1,159 @@
+/* Review Form Assistant - popup styles. No external fonts, no CDN assets. */
+
+:root {
+  color-scheme: light dark;
+  --fg: #1c1c1e;
+  --muted: #5c5c62;
+  --bg: #fbfbfa;
+  --line: #d9d9d6;
+  --accent: #2f5d50;
+  --warn: #a3161f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #ececea;
+    --muted: #a2a29e;
+    --bg: #1b1b1a;
+    --line: #3a3a38;
+    --accent: #7fb69f;
+    --warn: #e2777f;
+  }
+}
+
+body {
+  width: 330px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.5 system-ui, -apple-system, sans-serif;
+}
+
+main {
+  padding: 14px 14px 12px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+
+.scope {
+  margin: 0 0 10px;
+  padding: 8px 9px;
+  border-left: 3px solid var(--warn);
+  background: rgba(128, 128, 128, 0.09);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.confirm {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.confirm input {
+  margin: 2px 0 0;
+  flex: 0 0 auto;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+button {
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--fg);
+  font-weight: 500;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.status {
+  margin: 12px 0 0;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.status.error {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.footer {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+/* Local server status strip and its setup link. */
+
+.server {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.server-state {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--warn);
+}
+
+.dot.on {
+  background: var(--accent);
+}
+
+button.link {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 12px;
+  font-weight: 500;
+}

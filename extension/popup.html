@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Review Form Assistant</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Review Form Assistant</h1>
+
+      <p class="scope">
+        For <strong>authorized, ungraded review material only</strong>. This tool
+        does not submit the form and does not move between form pages. Answer
+        suggestions come from a language model and can be wrong.
+      </p>
+
+      <label class="confirm">
+        <input type="checkbox" id="confirm" />
+        <span>I confirm this form is authorized, ungraded review material.</span>
+      </label>
+
+      <div class="actions">
+        <button id="answer" type="button" disabled>Answer visible questions</button>
+        <button id="clear" type="button" class="secondary" disabled>Clear filled answers</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite">
+        Confirm above to enable.
+      </p>
+
+      <div class="server">
+        <div class="server-state">
+          <span id="dot" class="dot off"></span>
+          <span id="server-text">Checking local server...</span>
+        </div>
+        <button id="setup" type="button" class="link">Open setup</button>
+      </div>
+
+      <p class="footer">
+        Local server: <code>http://127.0.0.1:8787/answer</code>. Multi-page forms
+        require opening each page and running this again.
+      </p>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

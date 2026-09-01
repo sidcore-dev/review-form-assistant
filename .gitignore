@@ -1,0 +1,17 @@
+# Secrets. Never commit the real key.
+.env
+*.pem
+
+# Runtime output
+server.log
+*.log
+
+# Build output
+Review-Form-Assistant.zip
+dist/
+
+# Dependencies (this project has none, but keep the guard)
+node_modules/
+
+# OS noise
+.DS_Store
