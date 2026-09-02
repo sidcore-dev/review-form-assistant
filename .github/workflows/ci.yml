@@ -1,0 +1,78 @@
+name: CI
+
+# The point of this workflow is not only that the code runs. It is that the
+# extension's permission surface cannot widen without the build going red.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["20", "22", "24"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # No install step on purpose: this project has zero dependencies, so
+      # there is nothing to resolve and no supply chain to audit.
+      - name: Confirm there are no dependencies
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const deps = Object.keys(pkg.dependencies ?? {});
+            const dev = Object.keys(pkg.devDependencies ?? {});
+            if (deps.length || dev.length) {
+              console.error('Dependencies were added:', [...deps, ...dev].join(', '));
+              process.exit(1);
+            }
+            console.log('Zero dependencies, as intended.');
+          "
+
+      - name: Offline test suite
+        run: npm test
+
+      - name: Permission and endpoint audit
+        run: npm run audit
+
+  package:
+    name: Package and secret sweep
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Runs syntax checks, manifest validation, the test suite, the permission
+      # audit, then extracts the built archive and refuses to ship it if any
+      # credential, .env, log, or absolute home path is found inside.
+      - name: Build and verify the shareable archive
+        run: npm run package
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: Review-Form-Assistant
+          path: Review-Form-Assistant.zip
+          if-no-files-found: error
